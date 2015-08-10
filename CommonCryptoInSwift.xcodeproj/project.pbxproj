@@ -12,6 +12,7 @@
 		66C895811B77DF47009A2EF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66C8957F1B77DF47009A2EF1 /* Main.storyboard */; };
 		66C895831B77DF47009A2EF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66C895821B77DF47009A2EF1 /* Assets.xcassets */; };
 		66C895861B77DF47009A2EF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66C895841B77DF47009A2EF1 /* LaunchScreen.storyboard */; };
+		66F3B6381B77E02300047D32 /* SymmetricCryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F3B6371B77E02300047D32 /* SymmetricCryptor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,8 @@
 		66C895821B77DF47009A2EF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		66C895851B77DF47009A2EF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		66C895871B77DF47009A2EF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		66C8958D1B77DF5D009A2EF1 /* CommonCryptoInSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CommonCryptoInSwift-Bridging-Header.h"; sourceTree = "<group>"; };
+		66F3B6371B77E02300047D32 /* SymmetricCryptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymmetricCryptor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +63,8 @@
 				66C895821B77DF47009A2EF1 /* Assets.xcassets */,
 				66C895841B77DF47009A2EF1 /* LaunchScreen.storyboard */,
 				66C895871B77DF47009A2EF1 /* Info.plist */,
+				66C8958D1B77DF5D009A2EF1 /* CommonCryptoInSwift-Bridging-Header.h */,
+				66F3B6371B77E02300047D32 /* SymmetricCryptor.swift */,
 			);
 			path = CommonCryptoInSwift;
 			sourceTree = "<group>";
@@ -90,6 +95,7 @@
 		66C895701B77DF47009A2EF1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Ignacio Nieto Carvajal";
 				TargetAttributes = {
@@ -136,6 +142,7 @@
 			files = (
 				66C8957E1B77DF47009A2EF1 /* ViewController.swift in Sources */,
 				66C8957C1B77DF47009A2EF1 /* AppDelegate.swift in Sources */,
+				66F3B6381B77E02300047D32 /* SymmetricCryptor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,10 +253,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = CommonCryptoInSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Ignacio-Nieto-Carvajal.CommonCryptoInSwift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CommonCryptoInSwift/CommonCryptoInSwift-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -257,10 +267,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = CommonCryptoInSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Ignacio-Nieto-Carvajal.CommonCryptoInSwift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CommonCryptoInSwift/CommonCryptoInSwift-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -283,6 +295,7 @@
 				66C8958C1B77DF47009A2EF1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
