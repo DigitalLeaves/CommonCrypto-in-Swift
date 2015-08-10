@@ -148,7 +148,7 @@ class SymmetricCryptor: NSObject {
         let bufferPointer    = UnsafeMutablePointer<Void>(bufferData.mutableBytes)
         let bufferLength     = size_t(bufferData.length)
         let ivBuffer         = iv == nil ? nil : UnsafePointer<Void>(iv!.bytes)
-        var bytesDecrypted = Int(0)
+        var bytesDecrypted   = Int(0)
         // Perform operation
         let cryptStatus = CCCrypt(
             operation,                  // Operation

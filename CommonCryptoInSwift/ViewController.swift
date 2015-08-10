@@ -167,8 +167,8 @@ class ViewController: UIViewController {
     func getCypheringOptions() -> Int {
         // build cyphering options
         var options = 0
-        if self.pkcs7Padding { options += kCCOptionPKCS7Padding }
-        if self.useEcbMode { options += kCCOptionECBMode }
+        if self.pkcs7Padding { options |= kCCOptionPKCS7Padding }
+        if self.useEcbMode { options |= kCCOptionECBMode }
         return options
     }
 
