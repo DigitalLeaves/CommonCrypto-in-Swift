@@ -1,4 +1,4 @@
-# CommonCrypto-in-Swift
+# CommonCrypto in Swift
 
 This projects contains SymmetricCryptor, a class designed to show the use of CommonCrypto in Swift. It also contains a demo UIViewController for testing the different symmetric encryption/decryption algorithms and options and how to use them in Swift.
 
