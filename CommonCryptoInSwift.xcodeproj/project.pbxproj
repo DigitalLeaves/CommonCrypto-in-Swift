@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		661F5F5E1DAA963C004AB36C /* Data+HexDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661F5F5D1DAA963C004AB36C /* Data+HexDescription.swift */; };
 		66C8957C1B77DF47009A2EF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C8957B1B77DF47009A2EF1 /* AppDelegate.swift */; };
 		66C8957E1B77DF47009A2EF1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C8957D1B77DF47009A2EF1 /* ViewController.swift */; };
 		66C895811B77DF47009A2EF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66C8957F1B77DF47009A2EF1 /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		661F5F5D1DAA963C004AB36C /* Data+HexDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+HexDescription.swift"; sourceTree = "<group>"; };
 		66C895781B77DF47009A2EF1 /* CommonCryptoInSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommonCryptoInSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66C8957B1B77DF47009A2EF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66C8957D1B77DF47009A2EF1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 		66C8957A1B77DF47009A2EF1 /* CommonCryptoInSwift */ = {
 			isa = PBXGroup;
 			children = (
+				661F5F5D1DAA963C004AB36C /* Data+HexDescription.swift */,
 				66C8957B1B77DF47009A2EF1 /* AppDelegate.swift */,
 				66C8957D1B77DF47009A2EF1 /* ViewController.swift */,
 				66C8957F1B77DF47009A2EF1 /* Main.storyboard */,
@@ -96,11 +99,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Ignacio Nieto Carvajal";
 				TargetAttributes = {
 					66C895771B77DF47009A2EF1 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -142,6 +146,7 @@
 			files = (
 				66C8957E1B77DF47009A2EF1 /* ViewController.swift in Sources */,
 				66C8957C1B77DF47009A2EF1 /* AppDelegate.swift in Sources */,
+				661F5F5E1DAA963C004AB36C /* Data+HexDescription.swift in Sources */,
 				66F3B6381B77E02300047D32 /* SymmetricCryptor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,8 +186,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -225,8 +232,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -245,6 +254,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -260,6 +270,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CommonCryptoInSwift/CommonCryptoInSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -273,6 +284,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Ignacio-Nieto-Carvajal.CommonCryptoInSwift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CommonCryptoInSwift/CommonCryptoInSwift-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
