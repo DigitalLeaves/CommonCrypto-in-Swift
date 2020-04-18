@@ -134,38 +134,44 @@ class SymmetricCryptor: NSObject {
     
     internal func cryptoOperation(_ inputData: Data, key: String, operation: CCOperation) throws -> Data {
         // Validation checks.
-        if iv == nil && (self.options & CCOptions(kCCOptionECBMode) == 0) {
+        if self.iv == nil && (self.options & CCOptions(kCCOptionECBMode) == 0) {
             throw(SymmetricCryptorError.missingIV)
         }
+
+        // Make sure we have a non nil iv
+        let iv = self.iv != nil ? self.iv! : Data(count: 0)
         
         // Prepare data parameters
-        let keyData: Data! = key.data(using: String.Encoding.utf8, allowLossyConversion: false)!
-        let keyBytes = keyData.withUnsafeBytes { return $0 }
-        //let keyBytes         = keyData.bytes.bindMemory(to: Void.self, capacity: keyData.count)
-        let keyLength        = size_t(algorithm.requiredKeySize())
-        let dataLength       = Int(inputData.count)
-        let dataBytes        = inputData.withUnsafeBytes { return $0 }
-        var bufferData       = Data(count: Int(dataLength) + algorithm.requiredBlockSize())
-        let bufferPointer    = bufferData.withUnsafeMutableBytes { return $0 }
-        let bufferLength     = size_t(bufferData.count)
-        let ivBuffer         = (iv == nil) ? nil : iv!.withUnsafeBytes({ return $0 })
-        var bytesDecrypted   = Int(0)
+        let keyData          = key.data(using: String.Encoding.utf8, allowLossyConversion: false)!
+        let keyLength        = algorithm.requiredKeySize()
+        var bufferData       = Data(count: inputData.count + algorithm.requiredBlockSize())
+        var bytesDecrypted   = 0
+        var cryptStatus      = CCCryptorStatus(0)
         // Perform operation
-        let cryptStatus = CCCrypt(
-            operation,                  // Operation
-            algorithm.ccAlgorithm(),    // Algorithm
-            options,                    // Options
-            keyBytes.baseAddress,       // key data
-            keyLength,                  // key length
-            ivBuffer?.baseAddress,      // IV buffer
-            dataBytes.baseAddress,      // input data
-            dataLength,                 // input length
-            bufferPointer.baseAddress,  // output buffer
-            bufferLength,               // output buffer length
-            &bytesDecrypted)            // output bytes decrypted real length
-        if Int32(cryptStatus) == Int32(kCCSuccess) {
+        keyData.withUnsafeBytes { keyBytes in
+            iv.withUnsafeBytes { ivBytes in
+                inputData.withUnsafeBytes { inputBytes in
+                    bufferData.withUnsafeMutableBytes { bufferBytes in
+                        cryptStatus = CCCrypt(
+                            operation,                  // Operation
+                            algorithm.ccAlgorithm(),    // Algorithm
+                            options,                    // Options
+                            keyBytes.baseAddress!,      // key data
+                            keyLength,                  // key length
+                            ivBytes.baseAddress,        // IV buffer
+                            inputBytes.baseAddress!,    // input data
+                            inputBytes.count,           // input length
+                            bufferBytes.baseAddress,    // output buffer
+                            bufferBytes.count,          // output buffer length
+                            &bytesDecrypted             // output bytes decrypted real length
+                        )
+                    }
+                }
+            }
+        }
+        if cryptStatus == kCCSuccess {
             bufferData.count = bytesDecrypted // Adjust buffer size to real bytes
-            return bufferData as Data
+            return bufferData
         } else {
             print("Error in crypto operation: \(cryptStatus)")
             throw(SymmetricCryptorError.cryptOperationFailed)
@@ -176,9 +182,15 @@ class SymmetricCryptor: NSObject {
     
     class func randomDataOfLength(_ length: Int) -> Data? {
         var mutableData = Data(count: length)
-        let bytes = mutableData.withUnsafeMutableBytes { return $0 }
-        let status = SecRandomCopyBytes(kSecRandomDefault, length, bytes.baseAddress!)
-        return status == 0 ? mutableData as Data : nil
+        if length == 0 {
+            return mutableData
+        }
+
+        let status = mutableData.withUnsafeMutableBytes { bytes in
+            return SecRandomCopyBytes(kSecRandomDefault, length, bytes.baseAddress!)
+        }
+
+        return status == 0 ? mutableData : nil
     }
     
     class func randomStringOfLength(_ length:Int) -> String {
