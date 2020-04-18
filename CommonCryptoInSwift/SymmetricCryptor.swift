@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let kSymmetricCryptorRandomStringGeneratorCharset: [Character] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".characters.map({$0})
+private let kSymmetricCryptorRandomStringGeneratorCharset: [Character] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".map({$0})
 
 enum SymmetricCryptorAlgorithm {
     case des        // DES standard, 64 bits key
@@ -140,35 +140,27 @@ class SymmetricCryptor: NSObject {
         
         // Prepare data parameters
         let keyData: Data! = key.data(using: String.Encoding.utf8, allowLossyConversion: false)!
-        let keyBytes = keyData.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> UnsafePointer<UInt8> in
-            return bytes
-        }
+        let keyBytes = keyData.withUnsafeBytes { return $0 }
         //let keyBytes         = keyData.bytes.bindMemory(to: Void.self, capacity: keyData.count)
         let keyLength        = size_t(algorithm.requiredKeySize())
         let dataLength       = Int(inputData.count)
-        let dataBytes        = inputData.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> UnsafePointer<UInt8> in
-            return bytes
-        }
+        let dataBytes        = inputData.withUnsafeBytes { return $0 }
         var bufferData       = Data(count: Int(dataLength) + algorithm.requiredBlockSize())
-        let bufferPointer    = bufferData.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
-            return bytes
-        }
+        let bufferPointer    = bufferData.withUnsafeMutableBytes { return $0 }
         let bufferLength     = size_t(bufferData.count)
-        let ivBuffer: UnsafePointer<UInt8>? = (iv == nil) ? nil : iv!.withUnsafeBytes({ (bytes: UnsafePointer<UInt8>) -> UnsafePointer<UInt8> in
-            return bytes
-        })
+        let ivBuffer         = (iv == nil) ? nil : iv!.withUnsafeBytes({ return $0 })
         var bytesDecrypted   = Int(0)
         // Perform operation
         let cryptStatus = CCCrypt(
             operation,                  // Operation
             algorithm.ccAlgorithm(),    // Algorithm
             options,                    // Options
-            keyBytes,                   // key data
+            keyBytes.baseAddress,       // key data
             keyLength,                  // key length
-            ivBuffer,                   // IV buffer
-            dataBytes,                  // input data
+            ivBuffer?.baseAddress,      // IV buffer
+            dataBytes.baseAddress,      // input data
             dataLength,                 // input length
-            bufferPointer,              // output buffer
+            bufferPointer.baseAddress,  // output buffer
             bufferLength,               // output buffer length
             &bytesDecrypted)            // output bytes decrypted real length
         if Int32(cryptStatus) == Int32(kCCSuccess) {
@@ -184,10 +176,8 @@ class SymmetricCryptor: NSObject {
     
     class func randomDataOfLength(_ length: Int) -> Data? {
         var mutableData = Data(count: length)
-        let bytes = mutableData.withUnsafeMutableBytes { (bytes: UnsafeMutablePointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
-            return bytes
-        }
-        let status = SecRandomCopyBytes(kSecRandomDefault, length, bytes)
+        let bytes = mutableData.withUnsafeMutableBytes { return $0 }
+        let status = SecRandomCopyBytes(kSecRandomDefault, length, bytes.baseAddress!)
         return status == 0 ? mutableData as Data : nil
     }
     
