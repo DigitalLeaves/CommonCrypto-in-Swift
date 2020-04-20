@@ -64,7 +64,7 @@ class ViewController: UIViewController {
     
     @IBAction func cypher(_ sender: AnyObject) {
         // validity checks
-        if clearTextView.text?.characters.count < 1 {
+        if clearTextView.text?.count < 1 {
             showAlertWithMessage("Please enter a valid clear text.")
             return
         } else { clearText = clearTextView.text! }
@@ -74,7 +74,7 @@ class ViewController: UIViewController {
         if !useEcbMode { // IV needed if not in ECB mode
             setIV(cypher)
         }
-        if symmetricKeyLabel.text?.characters.count < 1 { generateKey(nil) }
+        if symmetricKeyLabel.text?.count < 1 { generateKey(nil) }
         // perform cyphering
         do {
             cypherText = try cypher.crypt(string: clearText, key: symmetricKeyLabel.text!) as Data
@@ -101,7 +101,7 @@ class ViewController: UIViewController {
         if !useEcbMode { // IV needed if not in ECB mode
             setIV(cypher)
         }
-        if symmetricKeyLabel.text?.characters.count < 1 { generateKey(nil) }
+        if symmetricKeyLabel.text?.count < 1 { generateKey(nil) }
         // perform cyphering
         do {
             let clearData = try cypher.decrypt(cypherText!, key: symmetricKeyLabel.text!)
@@ -159,7 +159,7 @@ class ViewController: UIViewController {
     fileprivate func selectAlgorithmButton(_ button: UIButton) {
         self.symmetricKeyLabel.text = ""
         var allButtons: [UIButton] = [desButton, tripledesButton, rc4Button, rc2Button, aesButton]
-        if let index = allButtons.index(of: button) {
+        if let index = allButtons.firstIndex(of: button) {
             allButtons.remove(at: index)
             UIView.animate(withDuration: 0.5, animations: { () -> Void in
                 for buttonToFade in allButtons { buttonToFade.alpha = 0.20 }
